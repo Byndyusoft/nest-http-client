@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Byndyusoft
+ * Copyright 2022 Byndyusoft
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
-export * from "./helloWorldService";
+export * from "./httpClient";
+export * from "./httpClientModule";
+export * from "./httpClientOptionsInterface";
+export * from "./httpClientOptionsToken";
+export * from "./httpCoreClient";

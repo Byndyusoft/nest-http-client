@@ -1,11 +1,17 @@
-# ᐸRepository nameᐳ
+# nest-http-client
 
-[![npm@latest](https://img.shields.io/npm/v/@byndyusoft/typescript-template/latest.svg)](https://www.npmjs.com/package/@byndyusoft/typescript-template)
-[![test](https://github.com/Byndyusoft/node-typescript-template/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/Byndyusoft/node-typescript-template/actions/workflows/test.yaml)
+[![npm@latest](https://img.shields.io/npm/v/@byndyusoft/nest-http-client/latest.svg)](https://www.npmjs.com/package/@byndyusoft/nest-http-client)
+[![test](https://github.com/Byndyusoft/nest-http-client/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/Byndyusoft/nest-http-client/actions/workflows/test.yaml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-ᐸRepository descriptionᐳ
+axios for NestJS
+
+## Comparison with `@nestjs/axios`
+
+- [Promises instead of Observables](https://github.com/nestjs/axios/issues/271)
+- `axios` dependency [is not pinning](https://github.com/nestjs/axios/pull/149#issuecomment-925764515), you must provide it by yourself (e.g. get it from `HttpService`)
+- Allowing you use global `axios` with interceptors and different configs for various clients
 
 ## Requirements
 
@@ -15,25 +21,161 @@
 ## Install
 
 ```bash
-npm install ᐸPackage nameᐳ
+npm install @byndyusoft/nest-http-client @nestjs/common axios
 ```
 
 or
 
 ```bash
-yarn add ᐸPackage nameᐳ
+yarn add @byndyusoft/nest-http-client @nestjs/common axios
 ```
 
 ## Usage
 
+<details>
+<summary>1. Create module</summary>
+
 ```typescript
-// Usage example
+import {
+  DynamicModuleHelper,
+  TRegisterAsyncOptions,
+} from "@byndyusoft/nest-dynamic-module";
+import {
+  HttpClientModule,
+  IHttpClientOptions,
+} from "@byndyusoft/nest-http-client";
+import { DynamicModule, Module } from "@nestjs/common";
+import urlJoin from "proper-url-join";
+import qs from "qs";
+
+import { ClientBaseOptionsToken, ClientOptionsToken } from "./tokens";
+import { UsersClient } from "./usersClient";
+
+@Module({
+  imports: [
+    HttpClientModule.registerAsync({
+      inject: [ClientOptionsToken],
+      useFactory: (options: IHttpClientOptions) => options,
+    }),
+  ],
+  providers: [UsersClient],
+  exports: [UsersClient],
+})
+export class ClientModule {
+  public static registerAsync(
+    options?: TRegisterAsyncOptions<IHttpClientOptions>,
+  ): DynamicModule {
+    return DynamicModuleHelper.registerAsync(
+      {
+        module: ClientModule,
+        global: true,
+        providers: [
+          {
+            provide: ClientOptionsToken,
+            inject: [ClientBaseOptionsToken],
+            useFactory: (baseOptions: IHttpClientOptions) =>
+              ClientModule.clientOptionsFactory(baseOptions),
+          },
+        ],
+        exports: [ClientOptionsToken],
+      },
+      ClientBaseOptionsToken,
+      options,
+    );
+  }
+
+  private static clientOptionsFactory(
+    baseOptions: IHttpClientOptions,
+  ): IHttpClientOptions {
+    return {
+      ...baseOptions,
+      config: {
+        ...baseOptions.config,
+        baseURL: urlJoin(baseOptions.config?.baseURL as string, "/api/v1"),
+        paramsSerializer: (params) =>
+          qs.stringify(params, {
+            skipNulls: true,
+            arrayFormat: "repeat",
+          }),
+      },
+    };
+  }
+}
 ```
+
+</details>
+
+<details>
+<summary>2. Create client</summary>
+
+```typescript
+import { HttpClient } from "@byndyusoft/nest-http-client";
+import { Injectable } from "@nestjs/common";
+import _ from "lodash";
+import { keys } from "ts-transformer-keys";
+
+import {
+  CreateUserDto,
+  ListUsersQueryDto,
+  ListUsersResponseDto,
+  ParamsWithUserIdDto,
+  QueryWithUserVersionDto,
+  UpdateUserDto,
+  UserDto,
+} from "ᐸDtosᐳ";
+
+@Injectable()
+export class UsersClient {
+  public constructor(private readonly httpClient: HttpClient) {}
+
+  public createUser(request: CreateUserDto): Promise<UserDto> {
+    return this.httpClient.post("/users", request);
+  }
+
+  public deleteUser(
+    request: ParamsWithUserIdDto & QueryWithUserVersionDto,
+  ): Promise<UserDto> {
+    return this.httpClient.delete(
+      `/users/${encodeURIComponent(request.userId)}`,
+      {
+        params: _.pick(request, keys<QueryWithUserVersionDto>()),
+      },
+    );
+  }
+
+  public getUserById(request: ParamsWithUserIdDto): Promise<UserDto> {
+    return this.httpClient.get(`/users/${encodeURIComponent(request.userId)}`);
+  }
+
+  public listUsers(
+    request?: Partial<ListUsersQueryDto>,
+  ): Promise<ListUsersResponseDto> {
+    return this.httpClient.get("/users", {
+      params: request,
+    });
+  }
+
+  public updateUser(
+    request: ParamsWithUserIdDto & QueryWithUserVersionDto & UpdateUserDto,
+  ): Promise<UserDto> {
+    return this.httpClient.patch(
+      `/users/${encodeURIComponent(request.userId)}`,
+      _.pick(request, keys<UpdateUserDto>()),
+      {
+        params: _.pick(request, keys<QueryWithUserVersionDto>()),
+      },
+    );
+  }
+}
+```
+
+</details>
 
 ## Maintainers
 
 - [@Byndyusoft/owners](https://github.com/orgs/Byndyusoft/teams/owners) <<github.maintain@byndyusoft.com>>
 - [@Byndyusoft/team](https://github.com/orgs/Byndyusoft/teams/team)
+- [@KillWolfVlad](https://github.com/KillWolfVlad)
 
 ## License
 
