@@ -36,69 +36,39 @@ yarn add @byndyusoft/nest-http-client @nestjs/common axios
 <summary>1. Create module</summary>
 
 ```typescript
-import {
-  DynamicModuleHelper,
-  TRegisterAsyncOptions,
-} from "@byndyusoft/nest-dynamic-module";
+import { TRegisterAsyncOptions } from "@byndyusoft/nest-dynamic-module";
 import {
   HttpClientModule,
   IHttpClientOptions,
 } from "@byndyusoft/nest-http-client";
-import { DynamicModule, Module } from "@nestjs/common";
+import { DynamicModule, Global, Module } from "@nestjs/common";
 import urlJoin from "proper-url-join";
 import qs from "qs";
 
-import { ClientBaseOptionsToken, ClientOptionsToken } from "./tokens";
-import { UsersClient } from "./usersClient";
+import * as providers from "./providers";
 
+@Global()
 @Module({
-  imports: [
-    HttpClientModule.registerAsync({
-      inject: [ClientOptionsToken],
-      useFactory: (options: IHttpClientOptions) => options,
-    }),
-  ],
-  providers: [UsersClient],
-  exports: [UsersClient],
+  providers: Object.values(providers),
+  exports: Object.values(providers),
 })
 export class ClientModule {
   public static registerAsync(
     options?: TRegisterAsyncOptions<IHttpClientOptions>,
   ): DynamicModule {
-    return DynamicModuleHelper.registerAsync(
-      {
-        module: ClientModule,
-        global: true,
-        providers: [
-          {
-            provide: ClientOptionsToken,
-            inject: [ClientBaseOptionsToken],
-            useFactory: (baseOptions: IHttpClientOptions) =>
-              ClientModule.clientOptionsFactory(baseOptions),
-          },
-        ],
-        exports: [ClientOptionsToken],
-      },
-      ClientBaseOptionsToken,
+    return HttpClientModule.registerClientModule(
+      { module: ClientModule },
       options,
-    );
-  }
-
-  private static clientOptionsFactory(
-    baseOptions: IHttpClientOptions,
-  ): IHttpClientOptions {
-    return {
-      ...baseOptions,
-      config: {
-        ...baseOptions.config,
-        baseURL: urlJoin(baseOptions.config?.baseURL as string, "/api/v1"),
+      (config) => ({
+        ...config,
+        baseURL: urlJoin(config?.baseURL as string, "/api/v1"),
         paramsSerializer: (params) =>
           qs.stringify(params, {
             skipNulls: true,
             arrayFormat: "repeat",
           }),
-      },
-    };
+      }),
+    );
   }
 }
 ```

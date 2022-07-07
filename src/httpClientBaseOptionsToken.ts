@@ -14,9 +14,4 @@
  * limitations under the License.
  */
 
-export * from "./httpClient";
-export * from "./httpClientBaseOptionsToken";
-export * from "./httpClientModule";
-export * from "./httpClientOptionsInterface";
-export * from "./httpClientOptionsToken";
-export * from "./httpCoreClient";
+export const HttpClientBaseOptionsToken = Symbol("HttpClientBaseOptionsToken");
