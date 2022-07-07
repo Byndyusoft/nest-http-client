@@ -19,15 +19,19 @@ import {
   TRegisterAsyncOptions,
 } from "@byndyusoft/nest-dynamic-module";
 import { DynamicModule, Module } from "@nestjs/common";
+import { AxiosRequestConfig } from "axios";
 
 import { HttpClient } from "./httpClient";
+import { HttpClientBaseOptionsToken } from "./httpClientBaseOptionsToken";
 import { IHttpClientOptions } from "./httpClientOptionsInterface";
 import { HttpClientOptionsToken } from "./httpClientOptionsToken";
 import { HttpCoreClient } from "./httpCoreClient";
 
+const providers = [HttpCoreClient, HttpClient];
+
 @Module({
-  providers: [HttpCoreClient, HttpClient],
-  exports: [HttpCoreClient, HttpClient],
+  providers,
+  exports: providers,
 })
 export class HttpClientModule {
   public static registerAsync(
@@ -38,6 +42,34 @@ export class HttpClientModule {
         module: HttpClientModule,
       },
       HttpClientOptionsToken,
+      options,
+    );
+  }
+
+  public static registerClientModule(
+    dynamicModule: DynamicModule,
+    options?: TRegisterAsyncOptions<IHttpClientOptions>,
+    configFactory?: (config?: AxiosRequestConfig) => AxiosRequestConfig,
+  ): DynamicModule {
+    return DynamicModuleHelper.registerAsync(
+      {
+        ...dynamicModule,
+        providers: [
+          ...providers,
+          ...(dynamicModule.providers ?? []),
+          {
+            provide: HttpClientOptionsToken,
+            inject: [HttpClientBaseOptionsToken],
+            useFactory: (
+              baseOptions: IHttpClientOptions,
+            ): IHttpClientOptions => ({
+              ...baseOptions,
+              config: configFactory?.(baseOptions.config) ?? baseOptions.config,
+            }),
+          },
+        ],
+      },
+      HttpClientBaseOptionsToken,
       options,
     );
   }
