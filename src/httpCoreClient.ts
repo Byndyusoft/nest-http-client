@@ -22,6 +22,7 @@ import deepMerge from "deepmerge";
 
 import { IHttpClientOptions } from "./httpClientOptionsInterface";
 import { HttpClientOptionsToken } from "./httpClientOptionsToken";
+import { parseEndpoint, TEndpointRequest } from "./parseEndpoint";
 
 @Injectable()
 export class HttpCoreClient {
@@ -41,6 +42,13 @@ export class HttpCoreClient {
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
     return this.axios.delete(url, this.mergeConfigs(config));
+  }
+
+  public endpoint<T = any>(
+    route: string,
+    request?: any,
+  ): Promise<AxiosResponse<T>> {
+    return this.request(parseEndpoint(route, request as TEndpointRequest));
   }
 
   public get<T = any>(

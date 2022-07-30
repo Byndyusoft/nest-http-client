@@ -34,6 +34,12 @@ export class HttpClient {
     return response.data;
   }
 
+  public async endpoint<T = any>(route: string, request?: any): Promise<T> {
+    const response = await this.httpCoreClient.endpoint<T>(route, request);
+
+    return response.data;
+  }
+
   public async get<T = any>(
     url: string,
     config?: AxiosRequestConfig,
