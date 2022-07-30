@@ -16,15 +16,9 @@ axios for NestJS
 ## Requirements
 
 - Node.js v14 LTS or later
-- npm or yarn
+- Yarn
 
 ## Install
-
-```bash
-npm install @byndyusoft/nest-http-client @nestjs/common axios
-```
-
-or
 
 ```bash
 yarn add @byndyusoft/nest-http-client @nestjs/common axios
