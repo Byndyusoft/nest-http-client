@@ -12,6 +12,7 @@ axios for NestJS
 - [Promises instead of Observables](https://github.com/nestjs/axios/issues/271)
 - `axios` dependency [is not pinning](https://github.com/nestjs/axios/pull/149#issuecomment-925764515), you must provide it by yourself (e.g. get it from `HttpService`)
 - Allowing you use global `axios` with interceptors and different configs for various clients
+- `endpoint` requests like `@octokit/endpoint`
 
 ## Requirements
 
@@ -39,12 +40,12 @@ import { DynamicModule, Global, Module } from "@nestjs/common";
 import urlJoin from "proper-url-join";
 import qs from "qs";
 
-import * as providers from "./providers";
+import { UsersClient } from "./usersClient";
 
 @Global()
 @Module({
-  providers: Object.values(providers),
-  exports: Object.values(providers),
+  providers: [UsersClient],
+  exports: [UsersClient],
 })
 export class ClientModule {
   public static registerAsync(
@@ -70,13 +71,69 @@ export class ClientModule {
 </details>
 
 <details>
-<summary>2. Create client</summary>
+<summary>2. Create client (using new endpoint method)</summary>
+
+```typescript
+import { HttpClient } from "@byndyusoft/nest-http-client";
+import { Injectable } from "@nestjs/common";
+
+import {
+  CreateUserDto,
+  ListUsersQueryDto,
+  ListUsersResponseDto,
+  ParamsWithUserIdDto,
+  QueryWithUserVersionDto,
+  UpdateUserDto,
+  UserDto,
+} from "ᐸDtosᐳ";
+
+@Injectable()
+export class UsersClient {
+  public constructor(private readonly httpClient: HttpClient) {}
+
+  public createUser(request: CreateUserDto): Promise<UserDto> {
+    return this.httpClient.endpoint("POST /users", request);
+  }
+
+  public deleteUser(
+    request: ParamsWithUserIdDto & QueryWithUserVersionDto,
+  ): Promise<UserDto> {
+    return this.httpClient.endpoint(
+      "DELETE /users/{userId}{?userVersion}",
+      request,
+    );
+  }
+
+  public getUserById(request: ParamsWithUserIdDto): Promise<UserDto> {
+    return this.httpClient.endpoint("GET /users/{userId}", request);
+  }
+
+  public listUsers(
+    request?: Partial<ListUsersQueryDto>,
+  ): Promise<ListUsersResponseDto> {
+    return this.httpClient.endpoint("GET /users", request);
+  }
+
+  public updateUser(
+    request: ParamsWithUserIdDto & QueryWithUserVersionDto & UpdateUserDto,
+  ): Promise<UserDto> {
+    return this.httpClient.endpoint(
+      "PATCH /users/{userId}{?userVersion}",
+      request,
+    );
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>2.1. Create client (using standard methods)</summary>
 
 ```typescript
 import { HttpClient } from "@byndyusoft/nest-http-client";
 import { Injectable } from "@nestjs/common";
 import _ from "lodash";
-import { keys } from "ts-transformer-keys";
 
 import {
   CreateUserDto,
@@ -102,7 +159,7 @@ export class UsersClient {
     return this.httpClient.delete(
       `/users/${encodeURIComponent(request.userId)}`,
       {
-        params: _.pick(request, keys<QueryWithUserVersionDto>()),
+        params: _.omit(request, "userId"),
       },
     );
   }
@@ -124,9 +181,9 @@ export class UsersClient {
   ): Promise<UserDto> {
     return this.httpClient.patch(
       `/users/${encodeURIComponent(request.userId)}`,
-      _.pick(request, keys<UpdateUserDto>()),
+      _.omit(request, "userId", "userVersion"),
       {
-        params: _.pick(request, keys<QueryWithUserVersionDto>()),
+        params: _.pick(request, "userVersion"),
       },
     );
   }

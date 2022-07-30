@@ -20,3 +20,4 @@ export * from "./httpClientModule";
 export * from "./httpClientOptionsInterface";
 export * from "./httpClientOptionsToken";
 export * from "./httpCoreClient";
+export * from "./parseEndpoint";
