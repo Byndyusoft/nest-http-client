@@ -71,7 +71,44 @@ export class ClientModule {
 </details>
 
 <details>
-<summary>2. Create client (using new endpoint method)</summary>
+<summary>2. Inject client module into the application (appModule.ts)</summary>
+
+```typescript
+import { Module } from "@nestjs/common";
+
+import axios from "axios";
+
+import { SomeController } from "./someController";
+import { SomeService } from "./some.service";
+import { ConfigModule } from "./configModule";
+import { ConfigDto } from "./dtos";
+import { UsersClientModule } from "./clients/users";
+
+const axiosInstance = axios.create();
+
+// You can configure axios here, e.g. interceptors
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    UsersClientModule.registerAsync({
+      inject: [ConfigDto],
+      useFactory: async (config: ConfigDto) => ({
+        axios: axiosInstance,
+        config: config.usersApiClient,
+      }),
+    }),
+  ],
+  controllers: [SomeController],
+  providers: [SomeService],
+})
+export class AppModule {}
+```
+
+</details>
+
+<details>
+<summary>3. Create client (using new endpoint method)</summary>
 
 ```typescript
 import { HttpClient } from "@byndyusoft/nest-http-client";
@@ -128,7 +165,7 @@ export class UsersClient {
 </details>
 
 <details>
-<summary>2.1. Create client (using standard methods)</summary>
+<summary>3.1. Create client (using standard methods)</summary>
 
 ```typescript
 import { HttpClient } from "@byndyusoft/nest-http-client";
