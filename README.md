@@ -71,18 +71,17 @@ export class ClientModule {
 </details>
 
 <details>
-<summary>2. Inject client module into the application (appModule.ts)</summary>
+<summary>2. Inject client module into the application</summary>
 
 ```typescript
 import { Module } from "@nestjs/common";
-
 import axios from "axios";
 
-import { SomeController } from "./someController";
-import { SomeService } from "./some.service";
+import { UsersClientModule } from "./clients/users";
 import { ConfigModule } from "./configModule";
 import { ConfigDto } from "./dtos";
-import { UsersClientModule } from "./clients/users";
+import { SomeService } from "./some.service";
+import { SomeController } from "./someController";
 
 const axiosInstance = axios.create();
 
