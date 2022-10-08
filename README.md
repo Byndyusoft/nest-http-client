@@ -71,7 +71,7 @@ export class ClientModule {
 </details>
 
 <details>
-<summary>2. Inject client module into the application</summary>
+<summary>2. Module Initialization</summary>
 
 ```typescript
 import { Module } from "@nestjs/common";
