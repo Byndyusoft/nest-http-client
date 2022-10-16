@@ -25,13 +25,13 @@ describe("parseEndpoint", () => {
           email: "user1@example.com",
         }),
       ).toMatchInlineSnapshot(`
-        Object {
-          "data": Object {
+        {
+          "data": {
             "email": "user1@example.com",
             "name": "user1",
           },
           "method": "POST",
-          "params": Object {},
+          "params": {},
           "url": "/users",
         }
       `);
@@ -44,9 +44,9 @@ describe("parseEndpoint", () => {
           userVersion: 5,
         }),
       ).toMatchInlineSnapshot(`
-        Object {
+        {
           "method": "DELETE",
-          "params": Object {
+          "params": {
             "userVersion": 5,
           },
           "url": "/users/1",
@@ -60,9 +60,9 @@ describe("parseEndpoint", () => {
           userId: "1",
         }),
       ).toMatchInlineSnapshot(`
-        Object {
+        {
           "method": "GET",
-          "params": Object {},
+          "params": {},
           "url": "/users/1",
         }
       `);
@@ -76,12 +76,12 @@ describe("parseEndpoint", () => {
           pageToken: "0",
         }),
       ).toMatchInlineSnapshot(`
-        Object {
+        {
           "method": "GET",
-          "params": Object {
+          "params": {
             "pageSize": 10,
             "pageToken": "0",
-            "userIds": Array [
+            "userIds": [
               "1",
               "2",
             ],
@@ -100,13 +100,13 @@ describe("parseEndpoint", () => {
           email: "user1@example.com",
         }),
       ).toMatchInlineSnapshot(`
-        Object {
-          "data": Object {
+        {
+          "data": {
             "email": "user1@example.com",
             "name": "user1",
           },
           "method": "PATCH",
-          "params": Object {
+          "params": {
             "userVersion": 5,
           },
           "url": "/users/1",
