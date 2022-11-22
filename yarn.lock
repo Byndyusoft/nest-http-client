@@ -460,7 +460,7 @@ __metadata:
     "@types/jest": "npm:28.1.6"
     "@types/lodash": "npm:4.14.182"
     "@types/node": "npm:14.18.22"
-    axios: "npm:0.27.2"
+    axios: "npm:1.2.0"
     deepmerge: "npm:^4.2.2"
     eslint: "npm:8.20.0"
     husky: "npm:8.0.1"
@@ -479,7 +479,7 @@ __metadata:
     typescript: "npm:4.7.4"
   peerDependencies:
     "@nestjs/common": ^8.4.7
-    axios: ^0.27.2
+    axios: ^0.27.2 || ^1.0.0
   peerDependenciesMeta:
     axios:
       optional: true
@@ -2286,6 +2286,17 @@ __metadata:
     follow-redirects: "npm:^1.14.9"
     form-data: "npm:^4.0.0"
   checksum: 4cd898afe90caaf05307fc5a0da4c61012493b6bfd4937fff9774455c01d368db583b17c4737e73853f149b32e615487930b491661682a1f69a1973b1f533bb7
+  languageName: node
+  linkType: hard
+
+"axios@npm:1.2.0":
+  version: 1.2.0
+  resolution: "axios@npm:1.2.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 03fd51fb655c5d717d2bff88e6189f8db87e4acf3339338493b43a29e3c9302a1251559f81974b7bf2a6a70fc2b5142746a4db4cb03b5c0449117a02045d8ebc
   languageName: node
   linkType: hard
 
@@ -4105,6 +4116,16 @@ __metadata:
     debug:
       optional: true
   checksum: 1f3e06bfb5c5351456e4fdb9197aa09158452d6400a06240a80204708b7a68f1bb47d6e94127112844136f66ad3283f9c92fa3c5c76aa96db8bd44214ea922b8
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.2
+  resolution: "follow-redirects@npm:1.15.2"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 930171f8b81bf00e9368df4b17f3b835934762d51192632af53a51a8a608d5510a1ffbc6da5761dce9996cdbd750740490ca844320e5ff11cdaf2329a5a69647
   languageName: node
   linkType: hard
 
@@ -7500,6 +7521,13 @@ __metadata:
     object-assign: "npm:^4.1.1"
     react-is: "npm:^16.13.1"
   checksum: 196295f119e0f38ec64b43c1121a7e3bdbfcf66b86a01d50df22a247eb22b644033097b53a3b0961ce64d540c7a2c505c844ff245cb548b4f6eda59bbac6fbf0
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 0bba2ef7c8374b384e94e4477764e53df66fcdfa7d19e2c4a063cb39eea979c139ce13981970223665422e72b7d149609a927046e2e40ab340b84d91af082591
   languageName: node
   linkType: hard
 
