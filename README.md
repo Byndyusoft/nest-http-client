@@ -10,7 +10,6 @@ axios for NestJS
 ## Comparison with `@nestjs/axios`
 
 - [Promises instead of Observables](https://github.com/nestjs/axios/issues/271)
-- `axios` dependency [is not pinning](https://github.com/nestjs/axios/pull/149#issuecomment-925764515), you must provide it by yourself (e.g. get it from `HttpService`)
 - Allowing you use global `axios` with interceptors and different configs for various clients
 - `endpoint` requests like `@octokit/endpoint`
 
