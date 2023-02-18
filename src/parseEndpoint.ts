@@ -88,7 +88,7 @@ export const parseEndpoint = (
   return _.omitBy(
     {
       method,
-      baseUrl: request.baseURL,
+      baseURL: request.baseURL,
       url,
       params: query,
       headers: request.headers,
