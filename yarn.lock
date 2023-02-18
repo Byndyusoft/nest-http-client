@@ -427,9 +427,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@byndyusoft/eslint-config@npm:2.1.1":
-  version: 2.1.1
-  resolution: "@byndyusoft/eslint-config@npm:2.1.1"
+"@byndyusoft/eslint-config@npm:2.4.1":
+  version: 2.4.1
+  resolution: "@byndyusoft/eslint-config@npm:2.4.1"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^5.19.0"
     "@typescript-eslint/parser": "npm:^5.19.0"
@@ -453,7 +453,7 @@ __metadata:
     pkg-dir: "npm:^5.0.0"
   peerDependencies:
     eslint: ^8.8.0
-  checksum: 6950391956d47f6105fdfbe33dc3adf8b20a29125c24ae38ff6be1022d0d57a5525dfbdb550e743a5c70110b85b847a607c1f1aa0745d5fe6eb06b73d499dcf0
+  checksum: 98be148d49b2063d618955426993d95809c4442fe34d9249249c9251c189fee56a199d4f149e3dbeb71f6b284f7a414f4c0e147bbc79b8ac6e8b3d64a444c102
   languageName: node
   linkType: hard
 
@@ -470,7 +470,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@byndyusoft/nest-http-client@workspace:."
   dependencies:
-    "@byndyusoft/eslint-config": "npm:2.1.1"
+    "@byndyusoft/eslint-config": "npm:2.4.1"
     "@byndyusoft/nest-dynamic-module": "npm:^1.0.0"
     "@byndyusoft/tsconfig": "npm:1.2.0"
     "@commitlint/cli": "npm:17.1.2"
@@ -485,12 +485,14 @@ __metadata:
     husky: "npm:8.0.1"
     jest: "npm:29.2.0"
     jest-extended: "npm:3.1.0"
+    jest-mock-extended: "npm:3.0.1"
     lint-staged: "npm:13.0.3"
     lodash: "npm:^4.17.21"
     markdownlint-cli: "npm:0.32.2"
     pinst: "npm:3.0.0"
     prettier: "npm:2.7.1"
     prettier-plugin-packagejson: "npm:2.3.0"
+    reflect-metadata: "npm:0.1.13"
     semantic-release: "npm:19.0.5"
     shx: "npm:0.3.4"
     ts-jest: "npm:29.0.3"
@@ -5423,6 +5425,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-mock-extended@npm:3.0.1":
+  version: 3.0.1
+  resolution: "jest-mock-extended@npm:3.0.1"
+  dependencies:
+    ts-essentials: "npm:^7.0.3"
+  peerDependencies:
+    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0 || ^28.0.0 || ^29.0.0
+    typescript: ^3.0.0 || ^4.0.0
+  checksum: 0cd4802ed3fdb450136de248dc0bb15f076afed764f2f22e520dc6eba7e6e870d98e3553d8cf1ae7c25c54ee682e7551df23b28d7871a20a41245a018a65accd
+  languageName: node
+  linkType: hard
+
 "jest-mock@npm:^29.2.0":
   version: 29.2.0
   resolution: "jest-mock@npm:29.2.0"
@@ -7825,6 +7839,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reflect-metadata@npm:0.1.13":
+  version: 0.1.13
+  resolution: "reflect-metadata@npm:0.1.13"
+  checksum: 61ce7c28a941bb75972972dfb8196e1d62e7c80a30111e1e0454ecb1a506fbee5dcb58c18c212b9f784b96686eb5b5b1baf7eb768e0d627c11c213e65f3af412
+  languageName: node
+  linkType: hard
+
 "regenerator-runtime@npm:^0.13.4":
   version: 0.13.10
   resolution: "regenerator-runtime@npm:0.13.10"
@@ -8852,6 +8873,15 @@ __metadata:
   version: 3.0.1
   resolution: "trim-newlines@npm:3.0.1"
   checksum: 19744329ccf7e526ed9555046291e48826e21ddf25a7fc99c6f5a8ab97ae49ef231bc7fe12e692965ae9766a6164a137cca1bee8468c9c70f82bcc67c62277f0
+  languageName: node
+  linkType: hard
+
+"ts-essentials@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: dac87cba3463a799b79bb65d06ebeb58b356a5aa60e796be5470de2434a0ed6642db49ea2b780e5d908c9594f012b1de05f1c3e0c952d4d414d607dba7a62924
   languageName: node
   linkType: hard
 
