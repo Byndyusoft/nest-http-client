@@ -19,7 +19,7 @@
     "src",
     "!dist/*.tsbuildinfo",
     "!**/__tests__",
-    "!**/*spec.ts"
+    "!**/*test.ts"
   ],
   "scripts": {
     "prebuild": "shx rm -rf ./dist",
@@ -64,7 +64,7 @@
       "jest-extended/all"
     ],
     "testEnvironment": "node",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testRegex": ".*\\.test\\.ts$",
     "transform": {
       "^.+\\.ts$": "ts-jest"
     }
