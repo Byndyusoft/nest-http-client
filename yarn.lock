@@ -475,7 +475,7 @@ __metadata:
     "@byndyusoft/tsconfig": "npm:1.2.0"
     "@commitlint/cli": "npm:17.1.2"
     "@commitlint/config-conventional": "npm:17.1.0"
-    "@nestjs/common": "npm:9.1.4"
+    "@nestjs/common": "npm:11.0.13"
     "@types/jest": "npm:29.1.2"
     "@types/lodash": "npm:4.14.186"
     "@types/node": "npm:14.18.32"
@@ -499,7 +499,7 @@ __metadata:
     tslib: "npm:^2.4.0"
     typescript: "npm:4.8.4"
   peerDependencies:
-    "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
+    "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0
     axios: ^0.27.2 || ^1.0.0
   peerDependenciesMeta:
     axios:
@@ -1094,27 +1094,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:9.1.4":
-  version: 9.1.4
-  resolution: "@nestjs/common@npm:9.1.4"
+"@lukeed/csprng@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@lukeed/csprng@npm:1.1.0"
+  checksum: 2529a7262c907f400543198976ff7c5902bac5721d05fd8db9b70ce775cb9bacc59786865a4168c0de0ebe068f8eec6818d491e797d51eaf128684a56323f563
+  languageName: node
+  linkType: hard
+
+"@nestjs/common@npm:11.0.13":
+  version: 11.0.13
+  resolution: "@nestjs/common@npm:11.0.13"
   dependencies:
     iterare: "npm:1.2.1"
-    tslib: "npm:2.4.0"
-    uuid: "npm:9.0.0"
+    tslib: "npm:2.8.1"
+    uid: "npm:2.0.2"
   peerDependencies:
-    cache-manager: <=5
     class-transformer: "*"
     class-validator: "*"
-    reflect-metadata: ^0.1.12
+    reflect-metadata: ^0.1.12 || ^0.2.0
     rxjs: ^7.1.0
   peerDependenciesMeta:
-    cache-manager:
-      optional: true
     class-transformer:
       optional: true
     class-validator:
       optional: true
-  checksum: b90bb8f341fd01bcad9fa4b1bed25c3a6a58a24b9e1d602743d4b8e3196abcd7616d89f19166a62153a5627f4180c142e367f4f43874ca7bc45371a0291d83d1
+  checksum: 9f2ca6755ccc390082cdb796af5dc8d22db795d98fc49ca022a8aa0f0e93f0a59c761fc4d8e3020e4e783eb115bcec251178f9dd0cd4b8ad8c3199499dcbf650
   languageName: node
   linkType: hard
 
@@ -8968,10 +8972,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: 022a70708abbc3491734959effd9a87e6e0af5932b61d0c9f1d07b8b80cabbbfc9fc9e9c0fe86e5ab2d32d766ae30117edf00b02d170ff255ab7e60361a4b711
+"tslib@npm:2.8.1":
+  version: 2.8.1
+  resolution: "tslib@npm:2.8.1"
+  checksum: 080be9a9b50485142bd6dc8f159187fc90b8a0cd7e83b29a38d63f3a6a59a86ab729ece36ab5ced67c775416c9cf4465e8fb52ff03f3aa6a2e661c9c69e26909
   languageName: node
   linkType: hard
 
@@ -8979,6 +8983,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 441af59dc42ad4ae57140e62cb362369620c6076845c2c2b0ecc863c1d719ce24fdbc301e9053433fef43075e061bf84b702318ff1204b496a5bba10baf9eb9f
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 022a70708abbc3491734959effd9a87e6e0af5932b61d0c9f1d07b8b80cabbbfc9fc9e9c0fe86e5ab2d32d766ae30117edf00b02d170ff255ab7e60361a4b711
   languageName: node
   linkType: hard
 
@@ -9094,6 +9105,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uid@npm:2.0.2":
+  version: 2.0.2
+  resolution: "uid@npm:2.0.2"
+  dependencies:
+    "@lukeed/csprng": "npm:^1.0.0"
+  checksum: ff7fd6551b61a43f0c197a3b69c3ba610e0ff02e74f0e07b702a41854fa2e29268a24c992345e8d31dfe0f74576f9861c17571377108bb88dd69e4057259bbd5
+  languageName: node
+  linkType: hard
+
 "unbox-primitive@npm:^1.0.2":
   version: 1.0.2
   resolution: "unbox-primitive@npm:1.0.2"
@@ -9181,15 +9201,6 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 6a88ed8344d07f2324b304ee36def365d967953b5a9c15baa3213eb3909e86a7da1ee70a4c2133e80c23d6c1987590e9c3c57d874e20a124f9e41620b462fa57
-  languageName: node
-  linkType: hard
-
-"uuid@npm:9.0.0":
-  version: 9.0.0
-  resolution: "uuid@npm:9.0.0"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: e1f76aff372e430bb129157360fd4cd3b393411b245604ea78e178a822ab7874ec2ebecec03ce94422b0b80bbd24733c6fa1df166c9cbad5086ef4b4843140bb
   languageName: node
   linkType: hard
 
